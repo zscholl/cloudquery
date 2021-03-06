@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/cloudquery/cloudquery/plugin"
 	"github.com/rs/zerolog/log"
+	"github.com/spf13/viper"
 	"golang.org/x/crypto/openpgp"
 	"io"
 	"net/http"
@@ -71,10 +72,8 @@ type Hub struct {
 }
 
 func NewHub(skipRegistry bool) *Hub {
-	dir, err := os.Getwd()
-	if err != nil {
-		dir = "."
-	}
+	dir := viper.GetString("plugin-dir")
+
 	return &Hub{
 		registryURL:     defaultHub,
 		skipRegistry:    skipRegistry,
